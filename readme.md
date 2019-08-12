@@ -626,6 +626,29 @@ const nextState = produce(state, draft => {
 })
 ```
 
+### Problem Example
+
+See [issue "State is not immutable if one uses classes"](https://github.com/immerjs/immer/issues/357)
+
+```js
+import produce from "immer";
+
+class State {
+  a = 1;
+}
+
+const state = new State();
+
+const nextState = produce(state, (s) => {
+  s.a = 2;
+});
+
+console.log(
+  state.a === 2, // true - state.a is now 2 as well
+  nextState.a === 2, // true
+);
+```
+
 ## TypeScript or Flow
 
 The Immer package ships with type definitions inside the package, which should be picked up by TypeScript and Flow out of the box and without further configuration.
